@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/steinbock-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/steinbock-{{ version }}.tar.gz
   sha256: 0c1802a319255914fea00bf3c6bfde79f27ec536637e179d5f582525bfee56fe
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
   entry_points:
     - steinbock = steinbock._cli:steinbock_cmd_group
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools-scm
   run:
     - anndata
@@ -32,7 +32,7 @@ requirements:
     - numpy
     - opencv
     - pandas
-    - python >=3.8
+    - python >={{ python_min }}
     - scikit-image
     - scipy
     - tifffile
@@ -48,6 +48,7 @@ test:
     # - pip check  # Fails due to opencv-python-headless
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://pypi.org/project/steinbock
